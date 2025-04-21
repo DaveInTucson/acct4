@@ -1,0 +1,29 @@
+<dialog class="modal" #selectDateRangeDialog>
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="modal-close" (click)='onCancel()'>&times;</span>
+            <h2>Select date range</h2>
+        </div>
+        <div class="modal-body">
+            <table>
+                <tr>
+                    <td>From  date:</td>
+                    <td><input type='date' [(ngModel)]='fromDate'></td>
+                </tr>
+                <tr>
+                    <td>To date:</td>
+                    <td><input type='date' [(ngModel)]='toDate'></td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button (click)='onApply()'>Apply</button>
+            <button (click)='onCancel()'>Cancel</button>
+            <!-- <button (click)='onLast30()'>Last 30 days</button> -->
+            <button (click)='onThisMonth()'>This Month</button>
+            <!-- <button (click)='onLast365()'>Last 365 days</button> -->
+            <button (click)="onThisYear()">This year</button>
+            <button (click)='onClearRange()'>Clear range</button>
+        </div>
+    </div>
+</dialog>

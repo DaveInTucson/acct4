@@ -1,0 +1,43 @@
+<app-top-nav context="home"/>
+
+<div *ngIf="dbWaiting()">
+    <h1>Waiting for database</h1>
+</div>
+
+<div *ngIf="dbSuccess()">
+    <table>
+        <tr>
+            <td>
+                <h1>Accounts</h1>
+
+                <div *ngIf="havePinned()">
+                    <h2>Pinned</h2>
+                    <app-account-list [accounts]="accountTable!.pinned"/>
+                </div>
+                <div *ngIf="haveActive()">
+                    <h2>Active</h2>
+                    <app-account-list [accounts]="accountTable!.active"/>
+                </div>
+                <div *ngIf="haveSecondary()">
+                    <h2>Secondary</h2>
+                    <app-account-list [accounts]="accountTable!.secondary"/>
+                </div>
+                <div *ngIf="haveClosed()">
+                    <h2>Closed</h2>
+                    <app-account-list [accounts]="accountTable!.closed"/>
+                </div>
+                <div *ngIf="accountTableSize() < 2">
+                    <p>You need to have at least two accounts before you can have a transaction</p>
+                </div>
+            </td>
+            <td>
+                <h1>Groups</h1>
+                <app-group-list [groups]="groups" />
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div *ngIf="dbFailure()">
+    <h1>Database failure</h1>
+</div>

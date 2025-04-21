@@ -1,0 +1,10 @@
+<select id="accountDropdown" (change)="onAccountChange($event)" #accountSelector>
+    <option value="0" disabled selected>{{caption}}</option>
+  
+    <ng-container *ngFor="let account of sortedAccounts; let i = index">
+      <hr *ngIf="isNewStatusGroup(i)">
+      <option  [value]="account.id">
+        {{ account.name }} ({{ account.status }})
+      </option>
+    </ng-container>
+  </select>

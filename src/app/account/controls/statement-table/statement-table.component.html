@@ -1,0 +1,26 @@
+<table class="statement-table">
+    <tr>
+        <th>Date</th><th>Account</th><th>Amount</th><th>Pending</th><th>Cleared</th><th>Status</th><th>Note</th><th></th>
+    </tr>
+    <tr>
+        <td></td><td>Opening Balance</td><td></td>
+        <td [class]="getMoneyClass(statement.pending_opening_balance)">{{statement.pending_opening_balance | currency}}</td>
+        <td [class]="getMoneyClass(statement.cleared_opening_balance)">{{statement.cleared_opening_balance | currency}}</td>
+        <td></td><td></td><td></td>
+    </tr>
+    <tr *ngFor="let transaction of statement.transactions; let i=index">
+        <td>{{transaction.date_posted}}</td>
+        <td><app-account-statement-link [account]="getTargetAccount(i)" [fromDate]="statement.from_date" [toDate]="statement.to_date" /></td>
+        <td [class]="getTransactionAmountClass(i)">{{getTransactionAmount(i) | currency}}</td>
+        <td [class]="getPendingBalanceClass(i)">{{balances[i].pendingBalance | currency}}</td>
+        <td [class]="getClearedBalanceClass(i)">{{balances[i].clearedBalance | currency}}</td>
+        <td>{{transaction.status}}</td>
+        <td>{{transaction.note}}</td>
+        <td title='Edit transaction'><button (click)='buttonEditTransaction(transaction)'>&#x270d;</button></td>
+    </tr>
+</table>
+<p>
+    Total Deposits: {{totalDeposits | currency}} 
+    Total Withdrawals: <span [class]='getMoneyClass(totalWithdrawals)'>{{totalWithdrawals | currency}}</span>
+    Difference: <span [class]="getMoneyClass(totalDeposits+totalWithdrawals)">{{totalDeposits + totalWithdrawals | currency}}</span>
+</p>

@@ -1,0 +1,2 @@
+<span *ngIf="getAccountID()===0">Initial Deposit</span>
+<a *ngIf="getAccountID()!==0" [routerLink]="['/account/statement/', getAccountID()]" [queryParams]='getQueryParms()'>{{getCaption()}}</a>

@@ -1,0 +1,63 @@
+<div id="myModal" class="modal" [style.display]='displayStyle' (click)='onOuterClick($event)'>
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close" (click)='buttonCancel()'>&times;</span>
+        <h2>{{title}}</h2>
+      </div>
+      <div class="modal-body" *ngIf='transaction' [formGroup]="dialogFormGroup">
+        <!-- {{transaction | json}} -->
+        <table>
+            <tr>
+                <td>Date Posted:</td>
+                <td><input type='date' formControlName="date_posted"></td>
+            </tr>
+            <tr>
+                <td>From:</td>
+                <td>
+                    <app-account-selector #fromSelector [accounts]='accounts' 
+                        (selected)="onAccountSelected('from_id', $event)" [accountID]="transaction.from_id"/>
+                </td>
+            </tr><tr>
+                <td>To:</td>
+                <td>
+                    <app-account-selector #toSelector [accounts]='accounts' 
+                        (selected)="onAccountSelected('to_id', $event)" [accountID]="transaction.to_id"/>
+                </td>
+            </tr>
+            <tr *ngIf="accountErrorText() != ''">
+                <td></td>
+                <td class='validation-error'>{{accountErrorText()}}</td>
+            </tr>
+            <tr>
+                <td>Amount:</td>
+                <td><input type='number' min='0.01' formControlName="amount"></td>
+            </tr>
+            <tr *ngIf="amountErrorText() != ''">
+                <td></td>
+                <td class='validation-error' >{{amountErrorText()}}</td>
+            </tr>
+            <tr>
+              <td>Status:</td>
+              <td>
+                <select id="status" formControlName="status">
+                    <option value="cleared">cleared</option>
+                    <option value="pending">pending</option>
+                    <option value="void">void</option>
+                </select>            
+              </td>
+            </tr>
+            <tr>
+                <td>Note:</td>
+                <td><input type='text' class='note-edit' formControlName="note"></td>
+            </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" (click)='buttonApply()' [disabled]="dialogFormGroup.invalid">Apply</button>
+        <button (click)='buttonCancel()'>Cancel</button>
+      </div>
+    </div>
+
+</div>

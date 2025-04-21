@@ -1,0 +1,74 @@
+<app-top-nav/>
+
+<div *ngIf="dbWaiting()">
+    <h1>Waiting for database</h1>
+</div>
+
+<div *ngIf="dbSuccess() && group">
+    <hr/>
+    <nav>
+        [
+        <app-account-selector
+            [accounts]="accounts"
+            (selected)="onEditAccount($event)"
+            caption="Edit an account"/>
+        |
+        <app-group-selector 
+            [groups]="groups" 
+            [groupID]="groupID"
+            [resetTrigger]="groupSelectResetTrigger"
+            (selected)="onAnotherGroupSelected($event)"
+            caption="Navigate to a different group"/>
+        |
+        <app-group-in-and-out-link
+            [groupID]="groupID"
+            [caption]="'View ' + group!.name + ' in and out'"/>
+        |
+        <app-group-summary-link
+            [groupID]="groupID"
+            [caption]="'view ' + group!.name + ' summary'"/>
+        ]
+    </nav>
+
+    <h1>Edit Group {{getGroupName()}}</h1>
+
+    <form [formGroup]="groupForm" (ngSubmit)="onUpdateGroup()">
+        <table class="labeled-input">
+            <tr>
+                <td><label for="name">Name:</label></td>
+                <td><input id="name" formControlName="name" /></td>
+            </tr>
+            <tr *ngIf="showNameError()"><td colspan="2">
+                <div class="validation-error">{{nameErrorText()}}</div>
+            </td></tr>
+        </table>
+        <button type="submit"  [disabled]="!okayToSave()">Save Changes</button>
+        <button [disabled]="!groupForm.dirty" (click)="onClearChanges()">Clear changes</button>
+    </form>
+
+    <table>
+        <tr><td>
+            <h2>Members</h2>
+            <ul>
+                <li *ngFor="let account of memberAccounts">
+                    <button (click)="onRemoveMember(account)">Remove</button> {{account.name}}
+                </li>
+            </ul>
+        </td><td>
+            <h2>Non-Members</h2>
+            <ul>
+                <li *ngFor="let account of nonmemberAccounts">
+                    <button (click)="onAddMember(account)">Add</button> {{account.name}}
+                </li>
+            </ul>
+        </td></tr>
+    </table>
+</div>
+
+<div *ngIf="dbSuccess() && !group">
+    <h1>No such group found for ID {{groupID}}</h1>
+</div>
+
+<div *ngIf="dbFailure()">
+    <h1>Database failure</h1>
+</div>

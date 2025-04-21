@@ -1,0 +1,16 @@
+#!c:/perl64/bin/perl.exe -w
+# -*- mode: perl -*-
+
+BEGIN
+{
+    use FileHandle;
+    *STDERR = new FileHandle('>> c:/local/log/acct4rest.log');
+    #print "Content-type: text/plain; charset=iso-8859-1\n\n";
+}
+
+use strict;
+use warnings;
+
+use Acct4RestLib::Main;
+
+acct4_rest_main('C:/local/config/acct4-dbconfig.txt');

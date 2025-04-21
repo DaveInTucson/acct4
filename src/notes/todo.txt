@@ -1,0 +1,7 @@
+
+* some kind of way to combine spending by group (restaurants, retail, etc) on in-and-out page?
+
+* code review/clean up
+
+* implement "Show Closed Accounts" check?
+* sort order?

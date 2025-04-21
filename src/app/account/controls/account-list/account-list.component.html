@@ -1,0 +1,7 @@
+<table>
+    <tr *ngFor="let account of accounts">
+        <td class="name">{{account.name}}</td>
+        <td><app-account-edit-link [account]="account" caption="[edit]"/></td>
+        <td><app-account-statement-link [account]="account" caption="[statement]"/></td>
+    </tr>
+</table>

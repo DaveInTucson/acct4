@@ -2,26 +2,51 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.6.
 
-## Development server
+As the name suggests, this is the fourth version of my accounts keeping SPA.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Design
 
-## Code scaffolding
+This is for my personal use, and it's something I use pretty much every day. So the answer to 
+most any "why did you do it that way?" question is "because that's what I wanted."
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## History
 
-## Build
+* Version 1: small, simple, read-only Handlebars-based JavaScript, HTML, CSS
+* Version 2: still small, simple, Angular 1 based, still read-only
+* Version 3: Angular 2 based, more self-contained but some important functionality never got done
+* Version 4: Angular 2 based, (almost) completely self-contained, new database structure
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Version 4 came about when I decided to complete and extend version 3, and quickly came to the
+conclusion that a (mostly) complete rewrite was in order.
 
-## Running unit tests
+## Structure
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Middle tier
 
-## Running end-to-end tests
+The app communicates with a pretty simple Perl CGI script that lives in the `cgi-bin` folder
+of my Apache installation. This is just a REST implementation for accessing the database.
+The middle tier Perl code lives under the `acct4/perl` folder.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Database tier
 
-## Further help
+I'm using MySQL for my database instance. All the table, view, procedure, and function scripts
+can be found under the `acct4/sql` folder.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## What's missing
+
+### Delete
+
+In spite of this basically being a CRUD application, I didn't implement any delete functionality,
+pretty much because I've never had need of it, and I can always just drop into the CLI if I
+really need to delete something.
+
+### Saving searches?
+
+Currently the last search is stored in browser local storage, which allows the user to return
+to the search page and modify (debug) the search parameters. It might be useful to let the
+user save named searches to the database. On the other hand, because the search results page
+gets the search parameters from query parameters, the browser bookmarks basically do this already.
+
+### Additional search parameters
+
+* Search on amount (min or max)

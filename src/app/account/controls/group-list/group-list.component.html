@@ -1,0 +1,10 @@
+<div *ngIf="groups.length > 0">
+    <table>
+        <tr *ngFor="let group of groups">
+            <td>{{group.name}}</td>
+            <td>{{group.members?.length ?? 0}} members</td>
+            <td><app-group-edit-link [group]="group" caption="[edit]" /></td>
+            <td><app-group-in-and-out-link [group]="group" caption="[in and out]" /></td>
+    </table>
+</div>
+

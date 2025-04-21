@@ -1,1 +1,120 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    margin-left: 2em;
+    margin-bottom: 2em;
+}
+
+.right-justify {
+    text-align: right;
+}
+
+/* ---------------------------------------------------------------------- */
+.money {
+  text-align: right;
+}
+
+.money-debit {
+  color: red;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Preferred table defaults 
+ */
+table { border-collapse: collapse; }
+th { text-align: left; }
+td { vertical-align: top; }
+
+.validation-error {
+  text-align: left;
+  color: red;
+}
+
+th
+{
+    text-align: left;
+}
+
+/* ---------------------------------------------------------------------- */
+/* for labeled input
+ */
+ table.labeled-input {
+  border-collapse: collapse;
+  border: 1px solid black;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
+
+table.labeled-input td {
+  padding: 0.5em;
+}
+
+/* ---------------------------------------------------------------------- */
+/* For modal dialogs */
+
+.modal {
+    /* display: none; */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+  
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 50em;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.modal-close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 1em;
+  background-color: #0f2c6e;
+  color: white;
+}
+
+.modal-header h2 {
+  margin-top: .3em;
+  margin-bottom: 0;
+}
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 1em;
+  background-color: #0f2c6e;
+  color: white;
+}
+
+.modal-body table {
+  margin: .5em;
+  width: 100%;
+  border: 1px solid black;
+}
+
+
+.modal-body table td:first-child {
+  text-align: right;
+  padding-right: .5em;
+  width: 7em;
+}

@@ -1,0 +1,59 @@
+<app-top-nav context="search"/>
+<hr>
+
+<div *ngIf="dbWaiting()">
+    <h1>Waiting for database</h1>
+</div>
+
+<div *ngIf="dbSuccess()">
+    <h1>Select search parameters</h1>
+
+    <p><input type="checkbox" [(ngModel)]="searchFlags.filterFrom">From account 
+        <select [(ngModel)]="searchParms.fromCmp"(ngModelChange)="setFilterFrom(true)"><option value="EQ">is</option><option value="NE">is not</option></select>
+        <select [(ngModel)]="searchParms.fromType" (ngModelChange)="setFilterFrom(true)">#fromType><option value="account">account</option><option value="group">in group</option></select>
+        <app-account-selector *ngIf="searchParms.fromType==='account'" 
+            [accounts]="accounts" [accountID]='searchParms.fromValue' (selected)="onSelectFromValue($event)"/>
+        <app-group-selector    *ngIf="searchParms.fromType==='group'"   
+            [groups]="groups"     [groupID]="searchParms.fromValue" (selected)="onSelectFromValue($event)"/>
+    </p>
+
+    <hr>
+    <p><input type="checkbox" [(ngModel)]="searchFlags.filterTo">To account 
+        <select [(ngModel)]="searchParms.toCmp" (ngModelChange)="setFilterTo(true)"><option value="EQ">is</option><option value="NE">is not</option></select>
+        <select [(ngModel)]="searchParms.toType" (ngModelChange)="setFilterTo(true)"><option value="account">account</option><option value="group">in group</option></select>
+        <app-account-selector *ngIf="searchParms.toType==='account'" 
+            [accounts]="accounts" [accountID]="searchParms.toValue" (selected)="onSelectToValue($event)"/>
+        <app-group-selector    *ngIf="searchParms.toType==='group'"   
+            [groups]="groups" [groupID]="searchParms.toValue" (selected)="onSelectToValue($event)"/>
+    </p>
+
+    <hr>
+    <p><input type="checkbox" [(ngModel)]="searchFlags.filterStatus">
+        Transaction status 
+        <select [(ngModel)]="searchParms.statusCmp" (ngModelChange)="setFilterStatus(true)"><option value="EQ">is</option><option value="NE">is not</option></select>
+        <select [(ngModel)]="searchParms.statusValue" (ngModelChange)="setFilterStatus(true)"><option value="cleared">cleared</option><option value="pending">pending</option><option value="void">void</option></select>
+    </p>
+
+    <hr>
+    <p><input type="checkbox" [(ngModel)]="searchFlags.filterDate">Date is in {{getDateRangeDescription()}}.
+        <button (click)="onSelectDateRange()">Select another date range</button>
+    </p>
+
+    <hr>
+    <p><input type="checkbox" [(ngModel)]="searchFlags.filterNote"> Note text
+        <select [(ngModel)]="searchParms.noteCmp" (ngModelChange)="setFilterNote(true)"><option value="regexp">matches</option><option value="not-regexp">doesn't match</option></select>
+        regular expression
+        <input type="text" [(ngModel)]="searchParms.noteRE" (ngModelChange)="setFilterNote(true)">
+    </p>
+    <hr>
+    <p><button (click)="onSearch()">Search</button> <button (click)="onClearEntries()">Clear Entries</button></p>
+
+    <app-select-date-dialog  #selectDateRangeDialog 
+        [fromDate]="searchParms.fromDate"
+        [toDate]="searchParms.toDate"
+        (onApply)="onDateRangeSelected($event)"/>
+</div>
+
+<div *ngIf="dbFailure()">
+    <h1>Database error!</h1>
+</div>

@@ -1,0 +1,13 @@
+1. Run the command
+
+   ng build --configuration production --base-href /apps/acct4/
+
+   Be sure to include the trailing / on the base-href value, it's important.
+
+   This will create a folder under node-js/acct3/dist/acct4 containing
+   seven files (3rdpartlicenses.txt, favicon.ico, index.html,
+   main.<stuff>.js, polyfills.<stuff>.js, runtime.<stuff>.js, and
+   style.<stuff>.js).
+
+2. Remove any existing older version in the target directory, then copy
+   these files to the corresponding target directory under the web server.

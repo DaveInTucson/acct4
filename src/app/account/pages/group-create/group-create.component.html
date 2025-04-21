@@ -1,0 +1,25 @@
+<app-top-nav context="new-group"/>
+
+<div *ngIf="dbWaiting()">
+    <h1>Waiting for database</h1>
+</div>
+
+<div *ngIf="dbSuccess()">
+    <h1>Enter a unique name for the new group</h1>
+    <form [formGroup]="newGroupForm" (ngSubmit)="onSubmit()">
+        <table class="labeled-input">
+            <tr>
+                <td><label for="name">Name:</label></td>
+                <td><input id="name" formControlName="name" /></td>
+            </tr>
+            <tr *ngIf="showNameError()"><td colspan="2">
+                <div class="validation-error">{{nameErrorText()}}</div>
+            </td></tr>
+        </table>
+        <button type="submit" [disabled]="!newGroupForm.valid">Create New Group</button>
+    </form>
+</div>
+
+<div *ngIf="dbFailure()">
+    <h1>Database failure</h1>
+</div>

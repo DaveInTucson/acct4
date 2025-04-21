@@ -1,0 +1,66 @@
+<app-top-nav/>
+
+<div *ngIf="dbWaiting()">
+    <h1>Waiting for database</h1>
+</div>
+
+<div *ngIf="dbSuccess() && group">
+    <h1>{{getTitleCaption()}}</h1>
+
+    <nav>
+        [
+        <app-group-edit-link [groupID]="groupID" caption="Edit this group"/>
+        |
+        <app-group-in-and-out-link 
+            [group]="group" 
+            [fromDate]="fromDate" [toDate]="toDate"
+            caption="View group in and out"/>
+        |
+        <app-group-selector [groups]="groups" caption="Select a different group" 
+            (selected)="onNewGroupSelected($event)"/>
+        |
+        <button (click)="onSelectNewDateRange()">Select another date range</button>
+        ]
+    </nav>
+    <hr>
+
+    <app-summary-graph 
+        [startingBalance]="getFromTotals()" [dateAndDeltas]="summary!.deltas"
+        [fromDate]="fromDate" [toDate]="toDate"/>
+
+    <hr>
+    <table class="statement-table">
+        <tr><th>Account</th><th>From Balance</th><th>To Balance</th><th>Difference</th>
+            <th></th><th></th></tr>
+        <tr *ngFor="let balance of summary!.account_balances">
+            <td>{{getAccountName(balance.account_id)}}</td>
+            <td [class]="moneyClass(balance.from_balance)">{{balance.from_balance | currency}}</td>
+            <td [class]="moneyClass(balance.from_balance)">{{balance.to_balance | currency}}</td>
+            <td [class]="moneyClass(balance.to_balance-balance.from_balance)">
+                {{balance.to_balance-balance.from_balance | currency}}
+            </td>
+            <td><app-account-statement-link [accountID]="balance.account_id" [fromDate]="fromDate" [toDate]="toDate" caption="[statement]" /></td>
+            <td><app-account-edit-link [accountID]="balance.account_id" caption="[edit account]" /></td>
+        </tr>
+        <tr>
+            <td>Total</td>
+            <td [class]="moneyClass(getFromTotals())">{{getFromTotals() | currency}}</td>
+            <td [class]="moneyClass(getToTotals())">{{getToTotals() | currency}}</td>
+            <td [class]="moneyClass(getDifferenceTotals())">{{getDifferenceTotals() | currency}}</td>
+        </tr>
+
+    </table>
+    <app-select-date-dialog 
+        #selectDateRangeDialog 
+        [fromDate]="fromDate" 
+        [toDate]="toDate"
+        (onApply)="onNewDateRangeSelected($event)" />
+</div>
+
+<div *ngIf="dbSuccess() && !group">
+    <h1>No group found for ID {{groupID}}</h1>
+</div>
+
+<div *ngIf="dbFailure()">
+    <h1>DB error</h1>
+</div>

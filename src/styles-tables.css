@@ -1,0 +1,30 @@
+.statement-table
+{
+  border-bottom: 1px solid #0f2c6e;
+}
+
+.statement-table th
+{
+    color: white;
+    background: #0f2c6e;
+}
+
+.statement-table tr:nth-child(2n)
+{
+    background: #d8dce8;
+}
+
+.statement-table td, .statement-table th
+{
+    padding-left: .3em;
+    padding-right: .3em;
+}
+
+.statement-table .money { text-align: right }
+.statement-table .withdrawal { color: red }
+.debit { color: red }
+
+.statement-table td:last-child
+{
+    max-width: 450px;
+}

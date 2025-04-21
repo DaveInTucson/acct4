@@ -1,0 +1,15 @@
+<nav>
+    [
+    <a *ngIf="context!=='home'" [routerLink]="['/']">Home</a>
+    <span *ngIf="context==='home'">Home</span>
+    |
+    <a *ngIf="context!='new-account'" [routerLink]="['/account/new']">New Account</a>
+    <span *ngIf="context==='new-account'">New Account</span>
+    |
+    <a *ngIf="context!=='new-group'" [routerLink]="['/group/new']">New Group</a>
+    <span *ngIf="context==='new-group'">New Group</span>
+    |
+    <a *ngIf="context!=='search'" [routerLink]="['/search']">Search</a>
+    <span *ngIf="context==='search'">Search</span>
+    ]
+</nav>

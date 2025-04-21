@@ -1,0 +1,50 @@
+<app-top-nav/>
+
+<div *ngIf="dbWaiting()">
+    <h1>Waiting for database</h1>
+</div>
+
+<div *ngIf="dbSuccess()">
+    <h1>Search results</h1>
+
+    <ul>
+        <li *ngIf="hasFromFilter()">{{fromFilterDescription()}}</li>
+        <li *ngIf="hasToFilter()">{{toFilterDescription()}}</li>
+        <li *ngIf="hasStatusFilter()">{{statusFilterDescription()}}</li>
+        <li *ngIf="hasDateFilter()">{{dateFilterDescription()}}</li>
+        <li *ngIf="hasNoteFiler()">{{noteFilterDescription()}}</li>
+    </ul>
+
+    <p>{{transactions.length}} Matching transactions found</p>
+    <table class="statement-table">
+        <tr>
+            <th>Date Posted</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Note</th>
+        </tr>
+        <tr *ngFor="let transaction of transactions">
+            <td>{{transaction.date_posted}}</td>
+            <td><app-account-statement-link 
+                [account]="getAccount(transaction.from_id)"
+                [fromDate]="fromDate" [toDate]="toDate"/></td>
+            <td><app-account-statement-link 
+                [account]="getAccount(transaction.to_id)"
+                [fromDate]="fromDate" [toDate]="toDate"/></td>
+            <td>{{transaction.amount | currency}}</td>
+            <td>{{transaction.status}}</td>
+            <td>{{transaction.note}}</td>
+        </tr>
+        <tr>
+            <td colspan="2">{{transactions.length}} matching transactions</td>
+            <td>Total:</td>
+            <td>{{getAmountTotal() | currency }}</td>
+            <td></td><td></td>
+    </table>
+</div>
+
+<div *ngIf="dbFailure()">
+    <h1>Database failure</h1>
+</div>

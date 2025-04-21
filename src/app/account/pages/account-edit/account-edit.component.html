@@ -1,0 +1,85 @@
+<app-top-nav/>
+<hr/>
+
+<div *ngIf="dbWaiting()">
+    <h1>Waiting for database</h1>
+</div>
+
+
+<div *ngIf="dbSuccess() && account">
+    <nav>
+        [
+        <app-account-selector
+            [accounts]="accounts" 
+            (selected)="onAccountSelected($event)"
+            [resetTrigger]="resetTrigger"
+            caption="Select a different account to edit"/>
+        |
+        <app-group-selector
+            [groups]="groups"
+            (selected)="onGroupSelected($event)"
+            caption="Select a group to edit" />
+        |
+        <app-account-statement-link
+            [account]="account"
+            [caption]="getTransactionLinkCaption()" />
+        ]
+    </nav>
+
+    <h1>Edit account {{account.name}}</h1>
+    <form [formGroup]="editAccountForm" (ngSubmit)="onSubmit()">
+        <table class="labeled-input">
+            <tr>
+                <td><label for="name">Name:</label></td>
+                <td><input id="name" formControlName="name" /></td>
+            </tr>
+            <tr *ngIf="showNameError()"><td colspan="2">
+                <div class="validation-error">{{nameErrorText()}}</div>
+            </td></tr>
+            <tr>
+                <td><label for="status">Status:</label></td>
+                <td><select id="status" formControlName="status">
+                    <option value="pinned">Pinned</option>
+                    <option value="active">Active</option>
+                    <option value="secondary">Secondary</option>
+                    <option value="closed">Closed</option>
+                </select></td>
+            </tr>
+        </table>
+        <div class="button-row">
+            <button type="submit" [disabled]="!readyToSubmit()">Save</button>
+            <button [disabled]="!editAccountForm.dirty" (click)="onClearChanges()">Clear changes</button>
+        </div>
+    </form>
+
+    <hr>
+    <table>
+        <tr>
+            <td class="two-column">
+                <h1>Containing groups</h1>
+                <ul>
+                    <li *ngFor="let group of containingGroups"
+                    ><button (click)="onRemoveFromGroup(group)">Remove from group</button> {{group.name}}</li>
+                </ul>
+            </td>
+            <td class="two-column">
+                <h1>Non-Containing groups</h1>
+                <ul>
+                    <li *ngFor="let group of nonContainingGroups">
+                        <button (click)="onAddToGroup(group)">Add to group</button> {{group.name}}</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+<div *ngIf="dbSuccess() && !account">
+    <h1>Error</h1>
+    <p>No account defined for ID {{accountID}}</p>
+</div>
+
+<div *ngIf="dbFailure()">
+    <h1>Error</h1>
+    <p>DB failure</p>
+</div>

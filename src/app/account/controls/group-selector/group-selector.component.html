@@ -1,0 +1,9 @@
+<select id="groupDropdown" (change)="onGroupChange($event)" #groupSelector>
+    <option value="0" disabled selected>{{caption}}</option>
+  
+    <ng-container *ngFor="let group of groups">
+      <option  [value]="group.id">
+        {{ group.name }}
+      </option>
+    </ng-container>
+  </select>

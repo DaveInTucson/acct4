@@ -1,0 +1,7 @@
+td {
+    padding-right: 0.5em;
+}
+
+tr:nth-child(odd) {
+    background-color: #eee;
+}

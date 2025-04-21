@@ -1,0 +1,23 @@
+table.account-edit {
+    border-collapse: collapse;
+    border: 1px solid black;
+    padding: 0.5em;
+    margin-bottom: 1em;
+}
+
+table.account-edit td {
+    padding: 0.5em;
+}
+
+.button-row button {
+    margin-right: 1em;
+}
+
+td.two-column:first-child {
+    padding-right: 1em;
+    border-right: 1px solid black;
+}
+
+td.two-column:nth-child(2) {
+    padding-left: 1em;
+}

@@ -1,0 +1,68 @@
+<app-top-nav/>
+
+<div *ngIf="dbWaiting()">
+    <h1>Waiting for database</h1>
+</div>
+
+<div *ngIf="dbSuccess() && statement">
+    <hr>
+    <nav>
+        [
+        <app-account-selector 
+            [accounts]="statement!.accounts" 
+            (selected)="onDifferentAccountSelected($event)"
+            caption="Select a different account"
+            />
+        |
+        <app-account-edit-link *ngIf="getAccount()"
+            [account]="getAccount()!"
+            [caption]="getEditAccountCaption()" />
+        ]
+    </nav>
+
+    <div *ngIf="getAccount()">
+        <h1>{{getStatementTitle()}}</h1>
+        <button (click)="buttonSelectDateRange()">Select Date Range</button>
+        <button (click)="onNewTransactionRequest()">New Transaction</button>
+        <app-statement-table [statement]="statement!" (editTransactionRequest)="onEditTransactionRequest($event)" />
+
+        <div *ngIf="groups.length > 0">
+            <h1>Groups</h1>
+            <table>
+                <tr *ngFor="let group of groups">
+                    <td>{{group.name}}</td>
+                    <td><app-group-edit-link [group]="group" caption="[edit]" /></td>
+                    <td><app-group-in-and-out-link 
+                        [group]="group" caption="[In and Out]"
+                        [fromDate]="statement.from_date ?? null"
+                        [toDate]="statement.to_date ?? null" /></td>
+                    <td><app-group-summary-link
+                        [group]="group" caption="[Summary]"
+                        [fromDate]="statement.from_date ?? null"
+                        [toDate]="statement.to_date ?? null"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <app-transaction-dialog #transactionDialog 
+            (onCreate)='onNewTransactionReady($event)'
+            (onUpdate)='onUpdatedTransactionReady($event)' />
+
+        <app-select-date-dialog #selectDateRangeDialog 
+            [fromDate]="statement.from_date ?? null"
+            [toDate]="statement.to_date ?? null"
+            (onApply)="onDateRangeSelected($event)"/>
+    </div>
+    <div *ngIf="!getAccount()">
+        <h1>No account for id {{statement.account_id}}</h1>
+    </div>
+</div>
+
+<div *ngIf="dbSuccess() && !statement">
+    <h1>Unknown account ID</h1>
+</div>
+
+<div *ngIf="dbFailure()">
+    <h1>Database failure</h1>
+</div>

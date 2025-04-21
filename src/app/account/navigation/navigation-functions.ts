@@ -28,6 +28,10 @@ export function navigateToGroupSummary(router: Router, groupID: number, fromDate
         { queryParams: { from: fromDate, to: toDate }});
 }
 
+export function navigateToSearch(router: Router) {
+    router.navigate(['/search']);
+}
+
 export function navigateToSearchResults(router: Router, searchParms: SearchParms) {
     router.navigate(['/search-results'], { queryParams: makeRouterSearchQueryParms(searchParms)});
 }

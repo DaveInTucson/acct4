@@ -43,6 +43,7 @@
             <td>{{getAmountTotal() | currency }}</td>
             <td></td><td></td>
     </table>
+    <p><button (click)="reloadSearchParameters()">Reload Search Parameters</button></p>
 </div>
 
 <div *ngIf="dbFailure()">

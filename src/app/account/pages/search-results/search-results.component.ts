@@ -1,14 +1,16 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { combineLatest, Subject, takeUntil } from 'rxjs';
 import { AccountDBService } from 'src/app/db/account-db.service';
 import { HttpErrorService } from 'src/app/services/http-error.service';
 import { Account, getAccountByID, getGroupByID, Group } from 'src/app/model/account';
-import { paramMap2SearchParams, SearchParms } from 'src/app/model/search';
+import { paramMap2SearchParams, SearchFlags, SearchParms } from 'src/app/model/search';
 import { unstringify } from 'src/app/util/convert';
 import { DBStatus } from 'src/app/util/db-status';
 import { Transaction } from 'src/app/model/statement';
 import { Title } from '@angular/platform-browser';
+import { CacheService } from '../../services/cache.service';
+import { navigateToSearch } from '../../navigation/navigation-functions';
 
 //--------------------------------------------------------------------------------
 //
@@ -47,9 +49,11 @@ export class SearchResultsComponent implements OnInit, AfterViewInit, OnDestroy 
   //
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private title: Title,
     private dbService: AccountDBService,
-    private errorService: HttpErrorService
+    private errorService: HttpErrorService,
+    private cacheService: CacheService
   ) {}
 
   //--------------------------------------------------------------------------------
@@ -225,5 +229,17 @@ export class SearchResultsComponent implements OnInit, AfterViewInit, OnDestroy 
       return `note ${getCmpDescription(this.searchParams.noteCmp)} expression ${this.searchParams.noteRE}`;
 
     return 'missing search params';
+  }
+
+  reloadSearchParameters(): void {
+    let sf = new SearchFlags();
+    sf.filterFrom = this.hasToFilter();
+    sf.filterTo = this.hasToFilter();
+    sf.filterStatus = this.hasStatusFilter();
+    sf.filterDate = this.hasDateFilter();
+    sf.filterNote = this.hasNoteFiler();
+
+    this.cacheService.setSearchParms(sf, this.searchParams);
+    navigateToSearch(this.router);
   }
 }

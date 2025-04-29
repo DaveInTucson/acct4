@@ -25,33 +25,17 @@
         <tr>
             <td>
                 <h2>Deposits</h2>
-                <table class="monthly-statement">
-                    <tr><th>Date</th><th>Account</th><th>Amount</th><th>Note</th></tr>
-                    <tr *ngFor="let transaction of inAndOut?.deposits">
-                        <td>{{transaction.date_posted}}</td>
-                        <td>{{getAccountName(transaction.from_id)}}</td>
-                        <td class="money">{{transaction.amount | currency}}</td>
-                        <td>{{transaction.note}}</td>
-                    </tr>
-                    <tr>
-                        <td></td><td>Total</td><td class="money">{{getDepositTotal() | currency}}</td><td></td>
-                    </tr>
-                </table>
+                <app-transaction-table
+                    [transactions]="inAndOut!.deposits" [accounts]="accounts"
+                    [fromDate]="fromDate" [toDate]="toDate"
+                    [showFrom]="true" [showTo]="false"/>
             </td>
             <td>
                 <h2>Withdrawals</h2>
-                <table class="monthly-statement">
-                    <tr><th>Date</th><th>Account</th><th>Amount</th><th>Note</th></tr>
-                    <tr *ngFor="let transaction of inAndOut?.withdrawals">
-                        <td>{{transaction.date_posted}}</td>
-                        <td>{{getAccountName(transaction.to_id)}}</td>
-                        <td class="money">{{transaction.amount | currency}}</td>
-                        <td>{{transaction.note}}</td>
-                    </tr>
-                    <tr>
-                        <td></td><td>Total</td><td class="money">{{getWithdrawalTotal() | currency}}</td><td></td>
-                    </tr>
-                </table>
+                <app-transaction-table
+                    [transactions]="inAndOut!.withdrawals" [accounts]="accounts"
+                    [fromDate]="fromDate" [toDate]="toDate"
+                    [showFrom]="false" [showTo]="true"/>
             </td>
         </tr>
     </table>

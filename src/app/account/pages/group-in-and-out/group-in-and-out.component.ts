@@ -108,6 +108,7 @@ export class GroupInAndOutComponent implements OnInit, AfterViewInit, OnDestroy 
   //
   private showTitle(): void {
     if (!this.viewIsInitialized) return;
+    if (!this.inAndOut) return;
     this.title.setTitle(this.getTitleText());
   }
 
@@ -161,6 +162,12 @@ export class GroupInAndOutComponent implements OnInit, AfterViewInit, OnDestroy 
   //
   onNewDateRangeSelected(dateRange: DateRange) : void {
     navigateToInAndOut(this.router, this.groupID, dateRange.fromDate, dateRange.toDate);
+  }
+
+  sortWithdrawalsByAmount(): void {
+    if (this.inAndOut) {
+      this.inAndOut.withdrawals.sort((a, b) => a.amount - b.amount);
+    }
   }
 
   //--------------------------------------------------------------------------------

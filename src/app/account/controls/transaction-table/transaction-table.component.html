@@ -1,0 +1,33 @@
+<table class="statement-table">
+    <tr><th (click)="sortByDate()">Date</th>
+        <th *ngIf="showFrom" (click)="sortByFrom()">From</th>
+        <th *ngIf="showTo" (click)="sortByTo()">To</th>
+        <th (click)="sortByAmount()">Amount</th>
+        <th *ngIf="showStatus" (click)="sortByStatus()">Status</th>
+        <th (click)="sortByNote()">Note</th>
+    </tr>
+    <tr *ngFor="let transaction of transactions">
+        <td>{{transaction.date_posted}}</td>
+        <td *ngIf="showFrom">
+            <app-account-statement-link [account]="getAccountByID(transaction.from_id)" 
+                                        [fromDate]="fromDate" 
+                                        [toDate]="toDate" />
+        </td>
+        <td *ngIf="showTo">
+            <app-account-statement-link [account]="getAccountByID(transaction.to_id)" 
+                                        [fromDate]="fromDate" 
+                                        [toDate]="toDate" />
+        </td>
+        <td class="money">{{transaction.amount | currency}}</td>
+        <td *ngIf="showStatus">{{transaction.status}}</td>
+        <td>{{transaction.note}}</td>
+    </tr>
+    <tr>
+        <td></td> <!-- date -->
+        <td *ngIf="showFrom"><span *ngIf="!showTo">Total</span></td> <!-- from -->
+        <td *ngIf="showTo">Total</td> <!-- to -->
+        <td class="money">{{getAmountTotal() | currency}}</td><td></td>
+        <td *ngIf="showStatus"></td> <!-- status -->
+        <td></td> <!-- note -->
+    </tr>
+</table>

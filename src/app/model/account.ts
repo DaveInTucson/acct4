@@ -126,8 +126,9 @@ export function getGroupContainersAndNonContainers(accountID: number, groups: Gr
 
 //----------------------------------------------------------------------
 //
-export function getAccountByID(accounts: Account[], id: number) : Account | null {
-    return accounts.find( account => account.id === id ) ?? null;
+export function getAccountByID(accounts: Account[], accountID: number) : Account {
+    return accounts.find(account => account.id === accountID) || 
+      { id: accountID, name:  `Account ${accountID}`, status: 'closed', groups: [], sort_order: 0};
 }
 
 //----------------------------------------------------------------------

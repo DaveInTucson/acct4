@@ -16,33 +16,15 @@
     </ul>
 
     <p>{{transactions.length}} Matching transactions found</p>
-    <table class="statement-table">
-        <tr>
-            <th>Date Posted</th>
-            <th>From</th>
-            <th>To</th>
-            <th>Amount</th>
-            <th>Status</th>
-            <th>Note</th>
-        </tr>
-        <tr *ngFor="let transaction of transactions">
-            <td>{{transaction.date_posted}}</td>
-            <td><app-account-statement-link 
-                [account]="getAccount(transaction.from_id)"
-                [fromDate]="fromDate" [toDate]="toDate"/></td>
-            <td><app-account-statement-link 
-                [account]="getAccount(transaction.to_id)"
-                [fromDate]="fromDate" [toDate]="toDate"/></td>
-            <td>{{transaction.amount | currency}}</td>
-            <td>{{transaction.status}}</td>
-            <td>{{transaction.note}}</td>
-        </tr>
-        <tr>
-            <td colspan="2">{{transactions.length}} matching transactions</td>
-            <td>Total:</td>
-            <td>{{getAmountTotal() | currency }}</td>
-            <td></td><td></td>
-    </table>
+    <app-transaction-table 
+        [transactions]="transactions" 
+        [accounts]="accounts" 
+        [fromDate]="fromDate" 
+        [toDate]="toDate" 
+        [showFrom]="true" 
+        [showTo]="true" 
+        [showStatus]="true"/>
+    
     <p><button (click)="reloadSearchParameters()">Reload Search Parameters</button></p>
 </div>
 

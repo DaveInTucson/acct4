@@ -27,6 +27,7 @@ import { SummaryGraphComponent } from './controls/summary-graph/summary-graph.co
 import { SearchComponent } from './pages/search/search.component';
 import { TopNavComponent } from './controls/top-nav/top-nav.component';
 import { SearchResultsComponent } from './pages/search-results/search-results.component';
+import { TransactionTableComponent } from './controls/transaction-table/transaction-table.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { SearchResultsComponent } from './pages/search-results/search-results.co
     SearchComponent,
     TopNavComponent,
     SearchResultsComponent,
+    TransactionTableComponent,
   ],
   imports: [
     CommonModule,

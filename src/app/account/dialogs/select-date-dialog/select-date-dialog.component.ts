@@ -43,6 +43,33 @@ export class SelectDateDialogComponent {
     this.applyEmitter.emit({ fromDate: firstOfMonth.toSQLString(), toDate: lastOfMonth.toSQLString()});
   }
 
+  private getCurrentFromDate() : JustDate {
+    if (this.fromDate) return new JustDate(this.fromDate);
+    return new JustDate();
+  }
+
+  private backAMonth(baseDate: JustDate): JustDate {
+    let year = baseDate.year;
+    let month = baseDate.month - 1;
+    if (month < 1) {
+      year -= 1;
+      month = 12;
+    } 
+    let day = baseDate.day
+    if (day > daysInMonth(year, month)) {
+      day = daysInMonth(year, month);
+    }
+    return new JustDate(year, month, day);
+  }
+
+  onBackAMonth() {
+    this.selectDateRangeDialog.nativeElement.close();
+    let currentFrom = this.getCurrentFromDate();
+    let newToDate = currentFrom.addDays(-1);
+    let newFromDate = this.backAMonth(currentFrom);
+    this.applyEmitter.emit({ fromDate: newFromDate.toSQLString(), toDate: newToDate.toSQLString() });
+  }
+
   onThisYear() {
     this.selectDateRangeDialog.nativeElement.close();
     let thisYear = new JustDate().year;

@@ -19,10 +19,14 @@
         <div class="modal-footer">
             <button (click)='onApply()'>Apply</button>
             <button (click)='onCancel()'>Cancel</button>
+            &nbsp;
             <!-- <button (click)='onLast30()'>Last 30 days</button> -->
             <button (click)='onThisMonth()'>This Month</button>
+            <button (click)="onBackAMonth()">Back a Month</button>
+            &nbsp;
             <!-- <button (click)='onLast365()'>Last 365 days</button> -->
             <button (click)="onThisYear()">This year</button>
+            &nbsp;
             <button (click)='onClearRange()'>Clear range</button>
         </div>
     </div>

@@ -15,8 +15,11 @@ export class GroupSelectorComponent implements OnChanges {
   @Output() selected = new EventEmitter<number>();
   @ViewChild('groupSelector') groupSelector! : ElementRef<HTMLSelectElement>;
 
+  private viewInitialized: boolean = false;
+
   ngAfterViewInit(): void {
-    this.groupSelector.nativeElement.value = "0";
+    this.viewInitialized = true;
+    this.groupSelector.nativeElement.value = this.groupID.toString();
 }
 
 //--------------------------------------------------------------------------
@@ -26,6 +29,10 @@ export class GroupSelectorComponent implements OnChanges {
       console.log("reset trigger before:", this.groupSelector.nativeElement.value);
       this.groupSelector.nativeElement.value = "0";
       console.log("reset trigger after:", this.groupSelector.nativeElement.value);
+    }
+    else if (changes["groupID"]) {
+      this.groupID = changes["groupID"].currentValue;
+      if (this.viewInitialized) this.groupSelector.nativeElement.value = this.groupID.toString();
     }
   }
 

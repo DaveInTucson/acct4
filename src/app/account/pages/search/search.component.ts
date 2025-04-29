@@ -64,6 +64,9 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   //--------------------------------------------------------------------------------
   //
   private setAccountsAndGroups(accounts: Account[], groups: Group[]) {
+    this.accounts = accounts;
+    this.groups = groups;
+
     let savedSearchFlags = this.cacheService.getSearchFlags();
     let savedSearchParms = this.cacheService.getSearchParms();
 
@@ -73,8 +76,6 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
     if (null !== savedSearchParms)
       this.searchParms = savedSearchParms;
 
-    this.accounts = accounts;
-    this.groups = groups;
     this.dbStatus = DBStatus.DB_SUCCESS
   }
 

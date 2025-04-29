@@ -16,8 +16,11 @@ export class AccountSelector2Component implements OnChanges {
   @Output() selected = new EventEmitter<number>();
   @ViewChild('accountSelector') accountSelector! : ElementRef<HTMLSelectElement>;
 
+  private viewInitialized: boolean = false;
+
   ngAfterViewInit(): void {
-      this.setSelectedValue(this.accountID);
+    this.viewInitialized = true;
+    this.setSelectedValue(this.accountID);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -26,7 +29,8 @@ export class AccountSelector2Component implements OnChanges {
       this.setSelectedValue(0)
     }
     else if (changes['accountID']) {
-      this.setSelectedValue(changes['accountID'].currentValue);
+      this.accountID = changes['accountID'].currentValue;
+      if (this.viewInitialized) this.setSelectedValue(this.accountID);
     }
   }
 

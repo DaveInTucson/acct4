@@ -12,6 +12,7 @@
             [accounts]="statement!.accounts" 
             (selected)="onDifferentAccountSelected($event)"
             caption="Select a different account"
+            [resetTrigger]="groupSelectResetTrigger"
             />
         |
         <app-account-edit-link *ngIf="getAccount()"

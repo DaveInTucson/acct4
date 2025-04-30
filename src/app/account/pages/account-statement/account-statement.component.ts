@@ -25,6 +25,7 @@ export class AccountStatementComponent implements OnInit, AfterViewInit, OnDestr
   private releaseSubscriptions$ = new Subject<void>();
   private dbStatus: DBStatus = DBStatus.DB_WAITING;
   private viewInitialized = false;
+  groupSelectResetTrigger: number = 0;
   statement: Statement | null = null;
   groups: Group[] = [];
 
@@ -77,6 +78,7 @@ export class AccountStatementComponent implements OnInit, AfterViewInit, OnDestr
     this.dbStatus = DBStatus.DB_SUCCESS;
     this.statement = statement;
     this.groups = groups;
+    this.groupSelectResetTrigger++;
     this.setTitle();
   }
 
@@ -172,7 +174,6 @@ export class AccountStatementComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   onDifferentAccountSelected(accountID: number) {
-    console.log('navigating to accountID =', accountID);
     navigateToAccountStatement(this.router, accountID, this.statement?.from_date ?? null, this.statement?.to_date ?? null);
   }
 }

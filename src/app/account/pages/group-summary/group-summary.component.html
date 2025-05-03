@@ -35,7 +35,7 @@
         <tr *ngFor="let balance of summary!.account_balances">
             <td>{{getAccountName(balance.account_id)}}</td>
             <td [class]="moneyClass(balance.from_balance)">{{balance.from_balance | currency}}</td>
-            <td [class]="moneyClass(balance.from_balance)">{{balance.to_balance | currency}}</td>
+            <td [class]="moneyClass(balance.to_balance)">{{balance.to_balance | currency}}</td>
             <td [class]="moneyClass(balance.to_balance-balance.from_balance)">
                 {{balance.to_balance-balance.from_balance | currency}}
             </td>

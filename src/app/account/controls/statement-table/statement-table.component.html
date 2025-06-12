@@ -14,7 +14,12 @@
         <td [class]="getTransactionAmountClass(i)">{{getTransactionAmount(i) | currency}}</td>
         <td [class]="getPendingBalanceClass(i)">{{balances[i].pendingBalance | currency}}</td>
         <td [class]="getClearedBalanceClass(i)">{{balances[i].clearedBalance | currency}}</td>
-        <td>{{transaction.status}}</td>
+        <td><select id="status" [value]="transaction.status" (change)="onStatusChange(transaction,$event)">
+                <option value="cleared">cleared</option>
+                <option value="pending">pending</option>
+                <option value="void">void</option>
+            </select>
+        </td>
         <td>{{transaction.note}}</td>
         <td title='Edit transaction'><button (click)='buttonEditTransaction(transaction)'>&#x270d;</button></td>
     </tr>

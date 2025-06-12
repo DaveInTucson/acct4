@@ -2,6 +2,10 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { Account } from 'src/app/model/account';
 import { Statement, Transaction } from 'src/app/model/statement';
 import { moneyClass } from 'src/app/util/convert';
+import { AccountTransactionsLinkComponent } from "../../navigation/account-statement-link/account-statement-link.component";
+import { HttpErrorService } from 'src/app/services/http-error.service';
+import { AccountDBService } from 'src/app/db/account-db.service';
+import { Subject, takeUntil } from 'rxjs';
 
 function moneyRound(value: number) : number {
   let rounded = Math.floor(value * 100 + 0.5)/100;
@@ -25,9 +29,11 @@ class Balances {
 @Component({
   selector: 'app-statement-table',
   templateUrl: './statement-table.component.html',
-  styleUrls: ['./statement-table.component.css']
+  styleUrls: ['./statement-table.component.css'],
+  standalone: false,
 })
 export class StatementTableComponent implements OnInit, OnChanges {
+  private releaseSubscriptions$ = new Subject<void>();
 
   @Input() statement! : Statement
   @Output() editTransactionRequest = new EventEmitter<Transaction>();
@@ -35,6 +41,11 @@ export class StatementTableComponent implements OnInit, OnChanges {
   balances: Balances[] = [];
   totalDeposits: number = 0;
   totalWithdrawals: number = 0;
+
+    constructor(
+      private dbService: AccountDBService,
+      private errorService: HttpErrorService)
+      { }
 
   ngOnInit() {
     this.computeBalances();
@@ -44,6 +55,11 @@ export class StatementTableComponent implements OnInit, OnChanges {
     //console.log("changes =", changes);
     if (changes['statement'])
       this.computeBalances();
+  }
+
+  ngOnDestroy(): void {
+    this.releaseSubscriptions$.next();
+    this.releaseSubscriptions$.complete();
   }
 
   private computeBalances() {
@@ -129,6 +145,15 @@ export class StatementTableComponent implements OnInit, OnChanges {
       sort_order: 0,
       groups: []
     };
+  }
+
+  onStatusChange(transaction: Transaction, event: any) {
+    transaction.status = event.target.value
+    this.dbService.updateTransaction(transaction)
+      .pipe(takeUntil(this.releaseSubscriptions$)).subscribe({
+        error: err => this.errorService.showError("creating new group", err)
+      })
+
   }
 
   buttonEditTransaction(transaction: Transaction) {

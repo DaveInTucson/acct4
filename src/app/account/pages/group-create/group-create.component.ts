@@ -13,7 +13,8 @@ import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-group-create',
   templateUrl: './group-create.component.html',
-  styleUrls: ['./group-create.component.css']
+  styleUrls: ['./group-create.component.css'],
+  standalone: false
 })
 export class GroupCreateComponent implements OnInit, AfterViewInit, OnDestroy {
   private releaseSubscriptions$ = new Subject<void>();

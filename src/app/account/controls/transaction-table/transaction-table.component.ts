@@ -5,7 +5,8 @@ import { Transaction, transactionCompareByAmount, transactionCompareByDate, tran
 @Component({
   selector: 'app-transaction-table',
   templateUrl: './transaction-table.component.html',
-  styleUrls: ['./transaction-table.component.css']
+  styleUrls: ['./transaction-table.component.css'],
+  standalone: false
 })
 export class TransactionTableComponent {
 

@@ -13,7 +13,8 @@ import { HttpErrorService } from 'src/app/services/http-error.service';
 @Component({
   selector: 'app-account-create',
   templateUrl: './account-create.component.html',
-  styleUrls: ['./account-create.component.css']
+  styleUrls: ['./account-create.component.css'],
+  standalone: false
 })
 export class AccountCreateComponent implements OnInit, AfterViewInit, OnDestroy {
 

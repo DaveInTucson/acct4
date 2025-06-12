@@ -5,7 +5,8 @@ import { JustDate } from 'src/app/util/JustDate';
 @Component({
   selector: 'app-account-statement-link',
   templateUrl: './account-statement-link.component.html',
-  styleUrls: ['./account-statement-link.component.css']
+  styleUrls: ['./account-statement-link.component.css'],
+  standalone: false
 })
 export class AccountTransactionsLinkComponent {
 

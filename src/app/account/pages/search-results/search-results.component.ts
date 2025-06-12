@@ -25,7 +25,8 @@ function getCmpDescription(cmp: string) : string {
 @Component({
   selector: 'app-search-results',
   templateUrl: './search-results.component.html',
-  styleUrls: ['./search-results.component.css']
+  styleUrls: ['./search-results.component.css'],
+  standalone: false
 })
 export class SearchResultsComponent implements OnInit, AfterViewInit, OnDestroy {
   private dbStatus: DBStatus = DBStatus.DB_WAITING;

@@ -4,7 +4,8 @@ import { Group } from 'src/app/model/account';
 @Component({
   selector: 'app-group-summary-link',
   templateUrl: './group-summary-link.component.html',
-  styleUrls: ['./group-summary-link.component.css']
+  styleUrls: ['./group-summary-link.component.css'],
+  standalone: false
 })
 export class GroupSummaryLinkComponent {
 

@@ -4,7 +4,8 @@ import { Group } from 'src/app/model/account';
 @Component({
   selector: 'app-group-list',
   templateUrl: './group-list.component.html',
-  styleUrls: ['./group-list.component.css']
+  styleUrls: ['./group-list.component.css'],
+  standalone: false
 })
 export class GroupListComponent {
 

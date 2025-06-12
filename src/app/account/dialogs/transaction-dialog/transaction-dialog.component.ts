@@ -8,7 +8,8 @@ import { from } from 'rxjs';
 @Component({
   selector: 'app-transaction-dialog',
   templateUrl: './transaction-dialog.component.html',
-  styleUrls: ['./transaction-dialog.component.css']
+  styleUrls: ['./transaction-dialog.component.css'],
+  standalone: false
 })
 export class TransactionDialogComponent {
 

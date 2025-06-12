@@ -5,7 +5,8 @@ import { daysInMonth, JustDate } from 'src/app/util/JustDate';
 @Component({
   selector: 'app-select-date-dialog',
   templateUrl: './select-date-dialog.component.html',
-  styleUrls: ['./select-date-dialog.component.css']
+  styleUrls: ['./select-date-dialog.component.css'],
+  standalone: false
 })
 export class SelectDateDialogComponent {
 

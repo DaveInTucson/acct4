@@ -14,7 +14,8 @@ import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-group-in-and-out',
   templateUrl: './group-in-and-out.component.html',
-  styleUrls: ['./group-in-and-out.component.css']
+  styleUrls: ['./group-in-and-out.component.css'],
+  standalone: false
 })
 export class GroupInAndOutComponent implements OnInit, AfterViewInit, OnDestroy {
 

@@ -4,7 +4,8 @@ import { Group } from 'src/app/model/account';
 @Component({
   selector: 'app-group-selector',
   templateUrl: './group-selector.component.html',
-  styleUrls: ['./group-selector.component.css']
+  styleUrls: ['./group-selector.component.css'],
+  standalone: false
 })
 export class GroupSelectorComponent implements OnChanges {
 

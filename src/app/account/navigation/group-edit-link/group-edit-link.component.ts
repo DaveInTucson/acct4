@@ -4,7 +4,8 @@ import { Group } from 'src/app/model/account';
 @Component({
   selector: 'app-group-edit-link',
   templateUrl: './group-edit-link.component.html',
-  styleUrls: ['./group-edit-link.component.css']
+  styleUrls: ['./group-edit-link.component.css'],
+  standalone: false
 })
 export class GroupEditLinkComponent {
   @Input() group: Group | null = null;

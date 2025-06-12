@@ -15,7 +15,8 @@ import { moneyClass } from 'src/app/util/convert';
 @Component({
   selector: 'app-group-summary',
   templateUrl: './group-summary.component.html',
-  styleUrls: ['./group-summary.component.css']
+  styleUrls: ['./group-summary.component.css'],
+  standalone: false
 })
 export class GroupSummaryComponent implements OnInit, AfterViewInit, OnDestroy {
 

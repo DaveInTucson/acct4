@@ -15,7 +15,8 @@ import { navigateToAccountStatement } from '../../navigation/navigation-function
 @Component({
   selector: 'app-account-statement',
   templateUrl: './account-statement.component.html',
-  styleUrls: ['./account-statement.component.css']
+  styleUrls: ['./account-statement.component.css'],
+  standalone: false
 })
 export class AccountStatementComponent implements OnInit, AfterViewInit, OnDestroy {
 

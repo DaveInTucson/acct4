@@ -19,7 +19,8 @@ interface OffsetAndLabel {
 @Component({
   selector: 'app-summary-graph',
   templateUrl: './summary-graph.component.html',
-  styleUrls: ['./summary-graph.component.css']
+  styleUrls: ['./summary-graph.component.css'],
+  standalone: false
 })
 export class SummaryGraphComponent implements AfterViewInit, OnChanges {
     @Input() startingBalance: number = 0;

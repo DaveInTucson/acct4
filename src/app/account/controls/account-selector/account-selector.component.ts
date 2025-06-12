@@ -4,7 +4,8 @@ import { Account } from 'src/app/model/account';
 @Component({
   selector: 'app-account-selector',
   templateUrl: './account-selector.component.html',
-  styleUrls: ['./account-selector.component.css']
+  styleUrls: ['./account-selector.component.css'],
+  standalone: false
 })
 export class AccountSelector2Component implements OnChanges {
 

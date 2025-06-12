@@ -4,7 +4,8 @@ import { Group } from 'src/app/model/account';
 @Component({
   selector: 'app-group-in-and-out-link',
   templateUrl: './group-in-and-out-link.component.html',
-  styleUrls: ['./group-in-and-out-link.component.css']
+  styleUrls: ['./group-in-and-out-link.component.css'],
+  standalone: false
 })
 export class GroupInAndOutLinkComponent {
   @Input() group: Group | null = null;

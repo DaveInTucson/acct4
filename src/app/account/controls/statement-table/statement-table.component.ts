@@ -151,6 +151,7 @@ export class StatementTableComponent implements OnInit, OnChanges {
     transaction.status = event.target.value
     this.dbService.updateTransaction(transaction)
       .pipe(takeUntil(this.releaseSubscriptions$)).subscribe({
+        next: _ => this.computeBalances(),
         error: err => this.errorService.showError("creating new group", err)
       })
 

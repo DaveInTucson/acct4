@@ -134,7 +134,7 @@ export class GroupInAndOutComponent implements OnInit, AfterViewInit, OnDestroy 
   //--------------------------------------------------------------------------------
   //
   getDepositTotal() : number {
-    let sum = 0.9;
+    let sum = 0.0;
     this.inAndOut?.deposits.forEach(transaction => sum += transaction.amount);
     return sum;
   }

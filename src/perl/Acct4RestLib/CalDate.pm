@@ -13,7 +13,9 @@ our @EXPORT = (
 
 use Object::Attributes qw/year month day/;
 
+
 1;
+
 
 #------------------------------------------------------------------------------
 #
@@ -25,6 +27,30 @@ sub new
     my $self = bless {}, $class;
     $self->setDate(@_);
     return $self;
+}
+
+#------------------------------------------------------------------------------
+#
+sub is_leap_year
+{
+    my $year = shift;
+
+    return 0 if $year % 4 != 0;
+    return 1 if $year % 100 != 0;
+    return $year % 400 == 0;
+}
+
+#------------------------------------------------------------------------------
+#
+sub get_days_in_month {
+    my ($year, $month) = @_;
+
+    if ($month == 2) {
+        return is_leap_year($year) ? 29 : 28;
+    }
+
+    return 30 if $month == 4 || $month == 6 || $month == 9 || $month == 11;
+    return 31;
 }
 
 #------------------------------------------------------------------------------
@@ -79,6 +105,10 @@ sub month_before
         $month += 12;
     }
 
+    if ($date > get_days_in_month($year, $month)) {
+        $date = get_days_in_month($year, $month);
+    }
+    
     return new Acct4RestLib::CalDate($year, $month, $date)
 }
 

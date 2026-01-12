@@ -124,6 +124,10 @@ sub month_after
         $month -= 12;
     }
 
+    if ($date > get_days_in_month($year, $month)) {
+        $date = get_days_in_month($year, $month);
+    }
+
     return new Acct4RestLib::CalDate($year, $month, $date)
 }
 

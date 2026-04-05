@@ -141,7 +141,6 @@ export class SummaryGraphComponent implements AfterViewInit, OnChanges {
       let offsets: OffsetAndLabel[] = [];
 
       let w30 = sgm.getTextWidth("30") * 1.7;
-
       // if there's room enough to label individual days, do that
       if (w30 < 1) {
         for (let offset = 0; offset <= numDays; offset++) {
@@ -155,7 +154,7 @@ export class SummaryGraphComponent implements AfterViewInit, OnChanges {
       else if (w30 < 31) {
         let date = firstDate;
         if (date.day !== 1)
-          date = date.addDays(daysInMonth(date.year, date.month) - date.day);
+          date = date.addDays(daysInMonth(date.year, date.month) - date.day + 1);
         while (daysBetweenJustDates(firstDate, date) <= numDays) {
           let label = getMonthInitial(date.month);
           if (date.month === 1) label = date.year.toString();
